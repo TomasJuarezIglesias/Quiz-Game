@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Quiz_Game
 {
-    public class QuestionDB
+    public class QuestionDB : Questions
     {
+        // Informacion necesaria para conexion a base de datos
         private string ConnectionDB = "Data Source=TOMASJUAREZ; Initial Catalog=Questions; User=soporte; Password=123"; 
-        // information neccessary for the connection to the database
-        // !important = we always need a user and a password to get a succesfully connection
-
+       
+        // Metodo para obtener lista de preguntas, junto con sus respuestas para el juego
         public List<Questions> Get()
         {
             List<Questions> list = new List<Questions>();
@@ -35,7 +35,7 @@ namespace Quiz_Game
                     questions.Answer3 = reader.GetString(3);
                     questions.Answer4 = reader.GetString(4);
                     questions.Correct = reader.GetString(5);
-
+           
                     list.Add(questions);
 
                 }
@@ -44,8 +44,7 @@ namespace Quiz_Game
                 connection.Close();
             }
 
-
-                return list;
+            return list;
         }
 
 

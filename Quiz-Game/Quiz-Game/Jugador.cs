@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Quiz_Game
 {
-    public class QuestionSearch : Questions
+    public class Jugador
     {
-
-       
-
-
+        public int Eleccion { get; set; }
     }
 }

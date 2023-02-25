@@ -6,6 +6,7 @@ namespace Quiz_Game
     {
         static void Main(string[] args)
         {
+            Juego.InicioJuego();
             
 
         }
