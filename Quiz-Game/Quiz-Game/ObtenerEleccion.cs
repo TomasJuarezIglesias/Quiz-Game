@@ -8,6 +8,7 @@ namespace Quiz_Game
 {
     public class ObtenerEleccion : Jugador
     {
+        // Metodo para obtener respuesta de la pregunta
         public int ObtenerRespuesta()
         {
             Console.Write("Ingrese el numero de su respuesta: ");

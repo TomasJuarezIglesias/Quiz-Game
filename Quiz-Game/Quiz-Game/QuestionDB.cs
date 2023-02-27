@@ -9,12 +9,12 @@ namespace Quiz_Game
 {
     public class QuestionDB : Questions
     {
-        // Informacion necesaria para conexion a base de datos
-        private string ConnectionDB = "Data Source=TOMASJUAREZ; Initial Catalog=Questions; User=soporte; Password=123"; 
        
         // Metodo para obtener lista de preguntas, junto con sus respuestas para el juego
-        public List<Questions> Get()
+        public static async Task<List<Questions>> Get()
         {
+            // Informacion necesaria para conexion a base de datos
+            string ConnectionDB = "Data Source=TOMASJUAREZ; Initial Catalog=Questions; User=soporte; Password=123"; 
             List<Questions> list = new List<Questions>();
             string query = "select Question, Answer1, Answer2, Answer3, Answer4, Correct from Question";
 

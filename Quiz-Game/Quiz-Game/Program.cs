@@ -6,8 +6,8 @@ namespace Quiz_Game
     {
         static void Main(string[] args)
         {
+            // Metodo para que se ejecute el juego
             Juego.InicioJuego();
-            
 
         }
     }
