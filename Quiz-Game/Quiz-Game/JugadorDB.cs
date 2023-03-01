@@ -36,15 +36,11 @@ namespace Quiz_Game
                 conection.Close();
             }
 
-            list = list.OrderByDescending(x => x.Puntuacion).ToList();
-
-
-
             return list;
         }
 
         // Metodo para agregar un nuevo jugador a la tabla de la base de datos
-        public static async Task Insert(Jugador unJugador)
+        public static void Insert(Jugador unJugador)
         {
             string ConnectionDB = "Data Source=TOMASJUAREZ; Initial Catalog=Jugadores; User=soporte; Password=123";
             string query = "Insert Into Jugador (Nombre, Puntuacion) values (@Nombre, @Puntuacion)";

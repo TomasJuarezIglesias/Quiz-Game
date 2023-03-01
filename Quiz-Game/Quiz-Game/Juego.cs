@@ -9,7 +9,7 @@ namespace Quiz_Game
     public class Juego
     {
         // Metodo donde se realiza las llamadas a metodos para el funcionamiento del juego
-        public static async Task<Task> InicioJuego()
+        public static async Task InicioJuego()
         {
             // Metodo asincronico para obtener preguntas de la DB para el juego
             var task = QuestionDB.Get();
@@ -22,14 +22,14 @@ namespace Quiz_Game
             Thread.Sleep(1000);
             Console.Clear();
 
-            List<Questions> list = await task;
-            foreach (var question in list)
+            List<Questions> Preguntas = await task;
+            foreach (var pregunta in Preguntas)
             {
                 Console.Clear();
                 bool correcto = false; // Se utiliza para saber si la eleccion del jugador es correcta
 
-                Console.WriteLine($"La pregunta es... \n{question.Question}");
-                Console.WriteLine($"Las opciones son:\n 1-{question.Answer1} \n 2-{question.Answer2} \n 3-{question.Answer3}\n 4-{question.Answer4}");
+                Console.WriteLine($"La pregunta es... \n{pregunta.Question}");
+                Console.WriteLine($"Las opciones son:\n 1-{pregunta.Answer1} \n 2-{pregunta.Answer2} \n 3-{pregunta.Answer3}\n 4-{pregunta.Answer4}");
                 ObtenerEleccion obtenerEleccion = new ObtenerEleccion();
 
                 int respuesta = obtenerEleccion.ObtenerRespuesta();
@@ -38,28 +38,28 @@ namespace Quiz_Game
                 switch (respuesta) 
                 {
                     case 1:
-                        if (question.Answer1 == question.Correct)
+                        if (pregunta.Answer1 == pregunta.Correct)
                         {
                             correcto = true;
                             unJugador.Puntuacion++;
                         }
                         break;
                     case 2:
-                        if (question.Answer2 == question.Correct)
+                        if (pregunta.Answer2 == pregunta.Correct)
                         {
                             correcto = true;
                             unJugador.Puntuacion++;
                         }
                         break;
                     case 3:
-                        if (question.Answer3 == question.Correct)
+                        if (pregunta.Answer3 == pregunta.Correct)
                         {
                             correcto = true;
                             unJugador.Puntuacion++;
                         }
                         break;
                     case 4:
-                        if (question.Answer4 == question.Correct)
+                        if (pregunta.Answer4 == pregunta.Correct)
                         {
                             correcto = true;
                             unJugador.Puntuacion++;
@@ -88,6 +88,10 @@ namespace Quiz_Game
                 Console.WriteLine("Pasando a la siguiente pregunta.....");
                 Thread.Sleep(500);
             }
+
+            // Guarda datos jugador en la DB 
+            JugadorDB.Insert(unJugador);
+
             // Muestra de puntuacion realizada
             Console.Clear();
             Console.WriteLine("Fin de las preguntas");
@@ -95,29 +99,24 @@ namespace Quiz_Game
             Thread.Sleep(1000);
             Console.Clear();
             
-            // Guarda datos jugador en la DB 
-            JugadorDB.Insert(unJugador);
 
             // se obtiene un bool conrespecto a la respuesta del jugador
             bool seguirJugando = JugarDeNuevo.SeguirJugando();
 
-            if (seguirJugando)
+            
+            if (!seguirJugando)
             {
-                Console.WriteLine("Escogio seguir jugando");
+                Console.WriteLine("Decidio no seguir jugando");
                 Thread.Sleep(1000);
                 Console.Clear();
-                return InicioJuego();
+                Console.WriteLine("Fin del Juego");
+                return;
             }
 
-            
-
-            // cualquier task 
-            // Tan solo se utiliza para lograr hacer un metodo recursivo
-            Console.WriteLine("Decidio no seguir jugando");
+            Console.WriteLine("Escogio seguir jugando");
             Thread.Sleep(1000);
             Console.Clear();
-            Console.WriteLine("Fin del Juego");
-            return task;    
+            await InicioJuego();
         }
 
 

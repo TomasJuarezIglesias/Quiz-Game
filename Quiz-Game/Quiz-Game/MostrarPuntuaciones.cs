@@ -11,20 +11,16 @@ namespace Quiz_Game
         // Metodo para mostrar la puntuacion de los primeros 3 jugadores
         public static void MostrarPuntuacion()
         {
-            int contador = 0;
-            List<Jugador> list = JugadorDB.Get();
-            foreach (Jugador unJugador in list)
+            List<Jugador> Jugadores = JugadorDB.Get();
+            var jugadoresOrdenados = Jugadores.OrderByDescending(x => x.Puntuacion).ToList();
+
+            Console.WriteLine("Los Mayores puntuaciones son: ");
+            for (int i = 0; i < 3; i++)
             {
-                Console.WriteLine("Los Mayores puntuaciones son: ");
-                contador++;
-                Console.WriteLine($" {contador}- {unJugador.Nombre}, {unJugador.Puntuacion}");
+                Console.WriteLine($" {i + 1}- {jugadoresOrdenados[i].Nombre}, {jugadoresOrdenados[i].Puntuacion}");
 
-                if (contador == 3)
-                {
-                    return;
-                }
             }
-
+            
         }
 
     }
